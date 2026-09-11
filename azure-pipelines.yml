@@ -5,8 +5,8 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  # TODO: Replace with the name of your actual Azure Service Connection in ADO
-  azureServiceConnection: 'MyAzureServiceConnection'
+  # Using your existing ADO Service Connection
+  azureServiceConnection: 'T-Rex-Azure-Connection'
 
 stages:
 - stage: Build_Hub
