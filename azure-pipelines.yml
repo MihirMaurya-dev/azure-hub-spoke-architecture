@@ -2,7 +2,7 @@ trigger:
   - main
 
 pool:
-  vmImage: 'windows-latest'
+  name: 'T-Rex-Agent'
 
 variables:
   # Using your existing ADO Service Connection
