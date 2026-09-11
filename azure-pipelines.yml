@@ -14,6 +14,8 @@ stages:
   jobs:
   - job: CI_Pipeline
     displayName: 'Security Scan & Terraform Plan'
+    workspace:
+      clean: all
     steps:
     
     # 1. Prepare the fresh ADO agent with Python & Checkov
