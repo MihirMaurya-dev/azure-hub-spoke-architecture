@@ -1,0 +1,44 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  # TODO: Replace with the name of your actual Azure Service Connection in ADO
+  azureServiceConnection: 'MyAzureServiceConnection'
+
+stages:
+- stage: Build_Hub
+  displayName: 'Build & Plan Hub Environment'
+  jobs:
+  - job: CI_Pipeline
+    displayName: 'Security Scan & Terraform Plan'
+    steps:
+    
+    # 1. Prepare the fresh ADO agent with Python & Checkov
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.x'
+    - script: pip install checkov
+      displayName: 'Install Checkov Security Scanner'
+
+    # 2. Prepare the ADO agent with Terraform
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
+
+    # 3. Authenticate to Azure and run our PowerShell Script!
+    - task: AzureCLI@2
+      displayName: 'Run Terraform CI Pipeline Script'
+      inputs:
+        azureSubscription: $(azureServiceConnection)
+        scriptType: 'pscore'
+        scriptLocation: 'scriptPath'
+        scriptPath: './run-pipeline.ps1'
+        # We can pass 'hub', 'spoke-dev', or 'spoke-prod' here!
+        arguments: '-Environment hub'
+
+    # 4. Grab the 'main.tfplan' binary our script created, and upload it as a secure Artifact
+    - publish: '$(System.DefaultWorkingDirectory)/terraform/environments/hub/main.tfplan'
+      artifact: 'Hub_TFPlan'
