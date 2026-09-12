@@ -18,10 +18,7 @@ stages:
       clean: all
     steps:
     
-    # 1. Prepare the fresh ADO agent with Python & Checkov
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '3.x'
+    # 1. Ensure Checkov is installed using the laptop's native Python
     - script: pip install checkov
       displayName: 'Install Checkov Security Scanner'
 
