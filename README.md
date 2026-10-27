@@ -69,6 +69,20 @@ flowchart TD
 
 ---
 
+## 🧰 Technology Stack & Tooling
+
+<div align="center">
+
+<a href="https://skillicons.dev">
+  <img src="https://skillicons.dev/icons?i=azure,terraform,bash,powershell,git,githubactions,linux,vscode&theme=dark&perline=8" alt="Technology Stack" />
+</a>
+
+</div>
+
+<br/>
+
+---
+
 ## 📂 Repository File System Architecture
 
 ```text
